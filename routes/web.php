@@ -6,3 +6,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\MovieController::class, 'index']);
 // Route hiển thị phim theo thể loại
 Route::get('/theloai/{id}', [MovieController::class, 'getByGenre'])->name('movie.genre');
+Route::get('/movie/{id}', [MovieController::class, 'detail'])->name('detail');
