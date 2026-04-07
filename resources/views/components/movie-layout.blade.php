@@ -42,7 +42,7 @@
                 max-width:1200px;
                 max-height:200px;
                 height:65vh;
-                background-image:url('{{asset('images/banner.jpg')}}');
+                background-image:url('{{asset('storage/z7697961132853_cb839bdf622e5e8c006e2c6af368b14a.jpg')}}');
                 background-size:cover;
                 color:white;
                 margin:0 auto;
