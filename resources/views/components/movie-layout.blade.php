@@ -42,7 +42,7 @@
                 max-width:1200px;
                 max-height:200px;
                 height:65vh;
-                background-image:url('{{asset('storage/9fd746060b508a0ed341.jpg')}}');
+                background-image:url('{{asset('storage/anhbia.jpg')}}');
                 background-size:cover;
                 color:white;
                 margin:0 auto;

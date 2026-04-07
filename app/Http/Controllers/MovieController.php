@@ -65,4 +65,24 @@ class MovieController extends Controller
         // Nhớ bổ sung thêm biến 'genre' vào hàm compact
         return view('search', compact('movies', 'keyword', 'title', 'genre')); 
     }
+    public function adminIndex() {
+    // Chỉ lấy các bộ phim có status bằng 1 
+    $movies = DB::select("select * from movie where status = 1"); 
+    return view('admin.index', compact('movies'));
+}
+
+public function adminList() {
+    // Truy vấn lấy danh sách phim có status = 1 
+    $movies = DB::select("select * from movie where status = 1");
+    
+    // Trỏ đúng vào file resources/views/movie/list.blade.php
+    return view('movie.list', compact('movies')); 
+
+}
+
+public function softDelete($id) {
+    // Thực hiện xóa mềm bằng cách cập nhật status về 0 
+    DB::update("update movie set status = 0 where id = ?", [$id]);
+    return redirect()->back()->with('success', 'Đã xóa phim thành công');
+}
 }
