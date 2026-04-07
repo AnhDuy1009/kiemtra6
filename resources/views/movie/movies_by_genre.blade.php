@@ -1,10 +1,14 @@
 <x-movie-layout>
     <x-slot name="title">
-        Trang chủ MovieDB
+        {{ $genre->genre_name_vn }} - MovieDB
     </x-slot>
 
+    <h3 style="margin-bottom: 20px; color: #333;">
+        <i class="fa fa-film"></i> {{ $genre->genre_name_vn }}
+    </h3>
+
     <div class="list-movie">
-        @foreach($movies as $movie)
+        @forelse($movies as $movie)
             <div class="movie shadow-sm">
                 <a href="{{ url('/movie/'.$movie->id) }}">
                     {{-- Hiển thị ảnh từ storage/app/public --}}
@@ -22,6 +26,10 @@
                     </div>
                 </a>
             </div>
-        @endforeach
+        @empty
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p style="color: #999; font-size: 1.1rem;">Không tìm thấy phim nào trong thể loại này.</p>
+            </div>
+        @endforelse
     </div>
 </x-movie-layout>
