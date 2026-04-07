@@ -42,7 +42,7 @@
                 max-width:1200px;
                 max-height:200px;
                 height:65vh;
-                background-image:url('{{asset('storage/z7697961132853_cb839bdf622e5e8c006e2c6af368b14a.jpg')}}');
+                background-image:url('{{asset('storage/9fd746060b508a0ed341.jpg')}}');
                 background-size:cover;
                 color:white;
                 margin:0 auto;
@@ -95,10 +95,9 @@
                     <h3>Millions of movies, TV shows and people to discover. Explore now.
                 </div>
                 <div class='search-input'>
-                    <form method="post" action="{{url('/timkiem')}}">
+                    <form method="GET" action="{{url('/timkiem')}}">
                         <input type="text" name='keyword' placeholder="Nhập tên bộ phim yêu thích để tìm kiếm">
                         <button class="search-btn">Tìm kiếm</button>
-                        {{csrf_field()}}
                     </form>
                 </div>
             </div>
