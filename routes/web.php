@@ -13,7 +13,7 @@ Route::get('/movies/manage', [MovieController::class, 'adminList'])->name('movie
 
 // Route cho nút Thêm (Chức năng 4) - Thêm dòng này để hết lỗi
 Route::get('/movies/create', [MovieController::class, 'create'])->name('movie.create');
-
+Route::post('/movies/store', [MovieController::class, 'store'])->name('movie.store');   // Xử lý lưu
 // Route cho nút Xem (Chi tiết)
 Route::get('/movies/detail/{id}', [MovieController::class, 'show'])->name('movie.detail');
 
