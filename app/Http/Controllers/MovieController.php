@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
 {
-    //
+   
     public function index()
     {
         $genres = \App\Models\Genre::all();
@@ -23,30 +24,45 @@ class MovieController extends Controller
 
     public function getByGenre($id)
     {
-        // 1. Tìm thể loại dựa trên ID truyền vào
+    
         $genre = Genre::findOrFail($id);
 
-        // 2. Lấy các phim thuộc thể loại này
-        // - Sử dụng quan hệ 'movies' từ Model Genre (cần định nghĩa ngược lại trong Genre Model)
-        // - Hoặc sử dụng whereHas để lọc phim
         $movies = Movie::whereHas('genres', function ($query) use ($id) {
             $query->where('genre.id', $id);
         })
-            ->orderBy('release_date', 'desc')  // Sắp xếp giảm dần theo ngày phát hành
-            ->limit(12)  // Giới hạn 12 bộ phim
+            ->orderBy('release_date', 'desc')  
+            ->limit(12)  
             ->get();
 
-        // 3. Trả về view kèm theo danh sách phim và thông tin thể loại để hiển thị tiêu đề
         return view('movie.movies_by_genre', compact('movies', 'genre'));
     }
 
-    // Bổ sung hàm này vào MovieController
     public function detail($id)
     {
-        // Lấy thông tin phim theo ID
         $movie = \App\Models\Movie::findOrFail($id);
 
-        // Trả về view detail.blade.php mà bạn vừa làm
         return view('movie.detail', compact('movie'));
+    }
+
+
+    public function search(Request $request)
+    {
+        // Lấy từ khóa người dùng nhập vào từ form
+        $keyword = $request->input('keyword');
+        $movies = [];
+        $title = "Tìm kiếm phim"; 
+
+        // Lấy danh sách thể loại phim để hiển thị ở thanh Menu bên trái
+        $genre = DB::select("select * from genre");
+
+        if (!empty($keyword)) {
+            $movies = DB::select("select * from movie where movie_name_vn like ?", ["%".$keyword."%"]);
+            $title = "Kết quả tìm kiếm cho: " . $keyword; 
+        } else {
+            $movies = DB::select("select * from movie limit 12");
+        }
+
+        // Nhớ bổ sung thêm biến 'genre' vào hàm compact
+        return view('search', compact('movies', 'keyword', 'title', 'genre')); 
     }
 }
